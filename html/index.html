@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List OF SKT</title>
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Quản lý công việc của SKT</h1>
+    </header>
+
+  <div class="container mt-5">
+      <form id="taskForm">
+          <div class="form-group">
+              <input type="text" id="titleInput" class="form-control" placeholder="Tiêu đề nhiệm vụ" required>
+          </div>
+          <div class="form-group">
+              <textarea id="contentInput" class="form-control" placeholder="Nội dung nhiệm vụ" required></textarea>
+          </div>
+          <div class="form-group">
+              <input type="date" id="startDateInput" class="form-control" required>
+          </div>
+          <div class="form-group">
+              <input type="date" id="endDateInput" class="form-control" required>
+          </div>
+          <div class="form-group">
+              <textarea id="noteInput" class="form-control" placeholder="Ghi chú"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Thêm công việc</button>
+      </form>
+      
+      <h3 class="mt-4">Danh sách công việc</h3>
+      <ul id="taskList" class="list-group"></ul>
+  </div>
+
+  <!-- Modal để sửa công việc -->
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="editModalLabel">Sửa công việc</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <form id="editForm">
+                      <div class="form-group">
+                          <input type="text" id="editTitleInput" class="form-control" placeholder="Tiêu đề nhiệm vụ" required>
+                      </div>
+                      <div class="form-group">
+                          <textarea id="editContentInput" class="form-control" placeholder="Nội dung nhiệm vụ" required></textarea>
+                      </div>
+                      <div class="form-group">
+                          <input type="date" id="editStartDateInput" class="form-control" required>
+                      </div>
+                      <div class="form-group">
+                          <input type="date" id="editEndDateInput" class="form-control" required>
+                      </div>
+                      <div class="form-group">
+                          <textarea id="editNoteInput" class="form-control" placeholder="Ghi chú"></textarea>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <footer>
+    <p>&copy; Quản Lý Công Việc của SKT</p>
+</footer>
+</body>
+</html>
