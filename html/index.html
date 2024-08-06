@@ -78,7 +78,56 @@
     <footer>
         <p>&copy; Quản Lý Công Việc của SKT</p>
     </footer>
-    <!-- Khanh da merge tu nhanh tuoi -->
+
+    <script>
+        // Mảng để lưu trữ các công việc
+        let tasks = [];
+        let editIndex = -1; // Chỉ số của công việc đang được chỉnh sửa
+
+        // Lắng nghe sự kiện khi form thêm công việc được gửi
+        document.getElementById('taskForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Ngăn ngừa hành động mặc định của form
+            const title = document.getElementById('titleInput').value; // Lấy giá trị tiêu đề
+            const content = document.getElementById('contentInput').value; // Lấy giá trị nội dung
+            const startDate = document.getElementById('startDateInput').value; // Lấy giá trị ngày bắt đầu
+            const endDate = document.getElementById('endDateInput').value; // Lấy giá trị ngày kết thúc
+            const note = document.getElementById('noteInput').value; // Lấy giá trị ghi chú
+
+            // Thêm công việc mới vào mảng tasks
+            tasks.push({
+                title,
+                content,
+                startDate,
+                endDate,
+                note
+            });
+            clearForm(); // Xóa form
+            renderTasks(); // Cập nhật danh sách công việc
+        });
+
+        // Hàm hiển thị danh sách công việc
+        function renderTasks() {
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = ''; // Xóa danh sách hiện tại
+
+            // Duyệt qua từng công việc và tạo phần tử li cho mỗi công việc
+            tasks.forEach((task, index) => {
+                const li = document.createElement('li');
+                li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                li.innerHTML = `<strong>${task.title}</strong><br>${task.content}<br>Thời gian: ${task.startDate} đến ${task.endDate}<br>Ghi chú: ${task.note}`;
+                taskList.appendChild(li); // Thêm phần tử li vào danh sách
+            });
+        }
+
+        // Hàm xóa du lieu trong form thêm công việc
+        function clearForm() {
+            document.getElementById('titleInput').value = '';
+            document.getElementById('contentInput').value = '';
+            document.getElementById('startDateInput').value = '';
+            document.getElementById('endDateInput').value = '';
+            document.getElementById('noteInput').value = '';
+        }
+    </script>
 </body>
 
 </html>
