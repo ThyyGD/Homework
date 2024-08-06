@@ -80,54 +80,95 @@
     </footer>
 
     <script>
-        // Mảng để lưu trữ các công việc
+
         let tasks = [];
-        let editIndex = -1; // Chỉ số của công việc đang được chỉnh sửa
-
-        // Lắng nghe sự kiện khi form thêm công việc được gửi
+        let editIndex = -1;
+        
+        
         document.getElementById('taskForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Ngăn ngừa hành động mặc định của form
-            const title = document.getElementById('titleInput').value; // Lấy giá trị tiêu đề
-            const content = document.getElementById('contentInput').value; // Lấy giá trị nội dung
-            const startDate = document.getElementById('startDateInput').value; // Lấy giá trị ngày bắt đầu
-            const endDate = document.getElementById('endDateInput').value; // Lấy giá trị ngày kết thúc
-            const note = document.getElementById('noteInput').value; // Lấy giá trị ghi chú
-
-            // Thêm công việc mới vào mảng tasks
-            tasks.push({
-                title,
-                content,
-                startDate,
-                endDate,
-                note
-            });
-            clearForm(); // Xóa form
-            renderTasks(); // Cập nhật danh sách công việc
+            event.preventDefault();
+            const title = document.getElementById('titleInput').value; 
+            const content = document.getElementById('contentInput').value; 
+            const startDate = document.getElementById('startDateInput').value; 
+            const endDate = document.getElementById('endDateInput').value; 
+            const note = document.getElementById('noteInput').value;
+        
+            
+            tasks.push({ title, content, startDate, endDate, note });
+            clearForm();
+            renderTasks(); 
         });
-
-        // Hàm hiển thị danh sách công việc
+        
+        
         function renderTasks() {
             const taskList = document.getElementById('taskList');
-            taskList.innerHTML = ''; // Xóa danh sách hiện tại
-
-            // Duyệt qua từng công việc và tạo phần tử li cho mỗi công việc
+            taskList.innerHTML = '';
+        
+            
             tasks.forEach((task, index) => {
                 const li = document.createElement('li');
                 li.className = 'list-group-item d-flex justify-content-between align-items-center';
                 li.innerHTML = `<strong>${task.title}</strong><br>${task.content}<br>Thời gian: ${task.startDate} đến ${task.endDate}<br>Ghi chú: ${task.note}`;
-                taskList.appendChild(li); // Thêm phần tử li vào danh sách
+        
+                
+                const editButton = document.createElement('button');
+                editButton.className = 'btn btn-warning btn-sm';
+                editButton.textContent = 'Sửa';
+                editButton.onclick = () => openEditModal(index);
+        
+                const deleteButton = document.createElement('button');
+                deleteButton.className = 'btn btn-danger btn-sm';
+                deleteButton.textContent = 'Xóa';
+                deleteButton.onclick = () => deleteTask(index); 
+        
+                li.appendChild(editButton);
+                li.appendChild(deleteButton); 
+                taskList.appendChild(li);
             });
         }
-
-        // Hàm xóa du lieu trong form thêm công việc
-        function clearForm() {
-            document.getElementById('titleInput').value = '';
-            document.getElementById('contentInput').value = '';
-            document.getElementById('startDateInput').value = '';
-            document.getElementById('endDateInput').value = '';
-            document.getElementById('noteInput').value = '';
+        
+        
+        function openEditModal(index) {
+            const task = tasks[index]; 
+            document.getElementById('editTitleInput').value = task.title; 
+            document.getElementById('editContentInput').value = task.content; 
+            document.getElementById('editStartDateInput').value = task.startDate; 
+            document.getElementById('editEndDateInput').value = task.endDate;
+            document.getElementById('editNoteInput').value = task.note; 
+            editIndex = index; 
+            $('#editModal').modal('show'); 
         }
-    </script>
+        
+        // // 
+        document.getElementById('editForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            const title = document.getElementById('editTitleInput').value; 
+            const content = document.getElementById('editContentInput').value; 
+            const startDate = document.getElementById('editStartDateInput').value; 
+            const endDate = document.getElementById('editEndDateInput').value; 
+            const note = document.getElementById('editNoteInput').value; 
+        
+             
+            tasks[editIndex] = { title, content, startDate, endDate, note };
+            $('#editModal').modal('hide'); 
+            renderTasks();
+        });
+        
+        
+        function deleteTask(index) {
+            tasks.splice(index, 1); 
+            renderTasks(); 
+        }
+        
+        
+         function clearForm() {
+             document.getElementById('titleInput').value = '';
+             document.getElementById('contentInput').value = '';
+             document.getElementById('startDateInput').value = '';
+             document.getElementById('endDateInput').value = '';
+             document.getElementById('noteInput').value = '';
+         }
+        </script>
 </body>
 
 </html>
